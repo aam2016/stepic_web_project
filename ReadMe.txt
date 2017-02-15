@@ -2,7 +2,8 @@ To start nginx-gunicorn-Django:
 $ virtualenv --python=/usr/bin/python3 web/myenv
 $ source ./web/myenv/bin/activate    ### $ source ./web/myenv/bin/deactivate
 $ pip install django gunicorn
-$ git clone https://github.com/aam2016/stepic_web_project /home/box/web
+$ git clone https://github.com/aam2016/stepic_web_project.git /home/box/web
+$ cd web
 $ sudo bash ./web/init.sh
 
 To start gunicorn:
@@ -30,6 +31,7 @@ Either reboot, or start the services manually:
 $ systemctl start gunicorn.socket
 
 $ curl -I 0.0.0.0:8080
+$ curl -I 0.0.0.0:8000
 
 $ pwd    ### where I am
 
