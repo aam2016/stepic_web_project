@@ -35,6 +35,7 @@ $ pwd    ### where I am
 
 MySQL
 $ sudo apt-get install mysql-server mysql-client
+$ sudo apt-get install python-pymysql  (sudo apt-get install python3-pymysql)
 $ sudo pip install pymysql
 $ sudo /etc/init.d/mysql start
 $ sudo /etc/init.d/mysql status

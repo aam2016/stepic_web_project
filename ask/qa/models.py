@@ -3,7 +3,15 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+class QuestionManager(models.Manager):                                          
+        def new():                                                              
+                pass                                                            
+        def popular():                                                          
+                pass 
+
+
 class Question(models.Model):
+    objects = QuestionManager() 
     title = models.CharField(default="", max_length=1024)
     text = models.TextField(default="")
     added_at = models.DateField(null=True)
@@ -16,11 +24,6 @@ class Question(models.Model):
 
     def get_url(self):
         return "/question/{}/".format(self.id)
-# text - полный текст вопроса
-# added_at - дата добавления вопроса
-# rating - рейтинг вопроса (число)
-# author - автор вопроса
-# likes - список пользователей, поставивших "лайк"
 
 
 class Answer(models.Model):
@@ -31,8 +34,3 @@ class Answer(models.Model):
 
     def __str__(self):
         return self.text
-
-# text - текст ответа
-# added_at - дата добавления ответа
-# question - вопрос, к которому относится ответ
-# author - автор ответа
