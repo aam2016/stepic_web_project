@@ -50,6 +50,12 @@ $ ps -la // Для получения основных сведений о процессах, запущенных текущем поль
 $ ps -ela  // Для всех пользователей 
 $ ps -a  // Базовая информация для текущего пользователя
 
+$ python manage.py syncdb
+superuser name: root
+password: admin
+$ python manage.py makemigrations qa
+$ python manage.py sqlmigrate qa 0001 (migrate)
+
 
 
 
