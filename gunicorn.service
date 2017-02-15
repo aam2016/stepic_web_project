@@ -1,0 +1,18 @@
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+Environment=SECRET_KEY=secret
+PIDFile=/run/gunicorn/pid
+User=box
+Group=box
+WorkingDirectory=/home/box/web
+ExecStart=/home/box/gunicorn/bin/gunicorn --pid /run/gunicorn/pid test:app
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

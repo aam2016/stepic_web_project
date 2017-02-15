@@ -1,0 +1,9 @@
+defusedxml==0.4.1
+Django==1.8.7
+gunicorn==19.4.5
+Magic-file-extensions==0.2
+pyliblzma==0.5.3
+pytz==2014.10
+SOAPpy==0.12.22
+sqlparse==0.1.18
+wstools==0.4.3
