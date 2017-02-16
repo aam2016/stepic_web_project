@@ -33,7 +33,7 @@ $ systemctl start gunicorn.socket
 $ curl -I 0.0.0.0:8080
 $ curl -I 0.0.0.0:8000
 
-$ pwd    ### where I am
+$ pwd    # where I am
 
 MySQL
 $ sudo apt-get install mysql-server mysql-client
