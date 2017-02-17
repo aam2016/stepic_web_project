@@ -18,6 +18,7 @@ urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
     url(r'^question/', include('qa.urls')),
+    url(r'^question/(\d+)', 'question', name='question'),
 
     url(r'^', not_found),
 ]
