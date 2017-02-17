@@ -44,7 +44,7 @@ $ sudo /etc/init.d/mysql status
 $ sudo mysql -u root -h localhost -p
 mysql> CREATE DATABASE stepic;
 mysql> GRANT ALL ON stepic.* TO 'admin'@'localhost' IDENTIFIED BY 'admin';
-mysql> FLUSH PRIVILEGES
+mysql> FLUSH PRIVILEGES;
 mysql> quit
 
 
