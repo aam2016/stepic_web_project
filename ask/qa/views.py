@@ -1,18 +1,36 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, Http404
-#from django.views.decorators.http import require_GET
+from django.shortcuts import render
+from django.http import HttpResponseRedirect, Http404
 from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login
 
 from qa.models import Question, Answer
+from qa.forms import AskForm, AnswerForm, LoginForm, SignupForm
 
 
 # Create your views here.
 
-def test(request, *args, **kwargs):
-    return HttpResponse('OK - OK', status=200)
+def question(request, num,):
+    try:
+        q = Question.objects.get(id=num)
+    except Question.DoesNotExist:
+        raise Http404
+    if request.method == "POST":
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            form._user = request.user
+            _ = form.save()
+            url = q.get_url()
+            return HttpResponseRedirect(url)
+    else:
+        form = AnswerForm(initial={'question': q.id})
 
-def new(request):
+    return render(request, 'question.html', {'question': q,
+                                             'form': form,
+                                             'user': request.user,
+                                             'session': request.session, })
+
+
+def index(request):
     try:
         page = int(request.GET.get("page"))
     except ValueError:
@@ -30,6 +48,7 @@ def new(request):
                    'page': page,
                    'user': request.user,
                    'session': request.session, })
+
 
 def popular(request):
     try:
@@ -50,22 +69,57 @@ def popular(request):
                    'user': request.user,
                    'session': request.session, })
 
-def question(request, num):
-    try:
-        q = Question.objects.get(id=num)
-    except Question.DoesNotExist:
-        raise Http404
+
+def ask(request):
     if request.method == "POST":
-        form = AnswerForm(request.POST)
+        form = AskForm(request.POST)
         if form.is_valid():
             form._user = request.user
-            _ = form.save()
-            url = q.get_url()
+            post = form.save()
+            url = post.get_url()
             return HttpResponseRedirect(url)
     else:
-        form = AnswerForm(initial={'question': q.id})
+        form = AskForm()
+    return render(request, 'ask.html', {'form': form,
+                                        'user': request.user,
+                                        'session': request.session, })
 
-    return render(request, 'question.html', {'question': q,
-                                             'form': form,
-                                             'user': request.user,
-                                             'session': request.session, })
+
+def login_view(request):
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
+            print(username, password)
+            user = authenticate(username=username, password=password)
+            print(type(user))
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+            return HttpResponseRedirect('/')
+    else:
+        form = LoginForm()
+    return render(request, 'login.html', {'form': form,
+                                          'user': request.user,
+                                          'session': request.session, })
+
+
+def signup(request):
+    if request.method == "POST":
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data["username"]
+            password = form.raw_passeord
+            user = authenticate(username=username, password=password)
+            print(type(user))
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+            return HttpResponseRedirect('/')
+    else:
+        form = SignupForm()
+    return render(request, 'signup.html', {'form': form,
+                                           'user': request.user,
+                                           'session': request.session, })
