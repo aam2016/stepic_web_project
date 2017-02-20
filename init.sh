@@ -12,4 +12,3 @@ sudo /etc/init.d/mysql start
 
 #source web/myvenv/bin/activate
 #gunicorn -b 0.0.0.0:8080 --pythonpath /home/box/web/ hello:app &     
-
