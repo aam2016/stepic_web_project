@@ -58,6 +58,10 @@ password: admin
 $ python manage.py makemigrations qa
 $ python manage.py sqlmigrate qa 0001 (migrate)
 
+lynx
+$ sudo apt-get install lynx
+$ lynx http://127.0.0.1:8000
+
 
 
 
