@@ -11,7 +11,7 @@ class AskForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea)
 
     def clean_text(self):
-        text = self.cleaned.data['text']
+        text = self.cleaned_data['text']
         return text
 
     def save(self):
@@ -34,7 +34,7 @@ class AnswerForm(forms.Form):
         return question
 
     def clean_text(self):
-        text = self.cleaned.data['text']
+        text = self.cleaned_data['text']
         return text
 
     def save(self):
